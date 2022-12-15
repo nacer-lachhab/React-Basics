@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import SkillBarToAdd from "./skillBarToAdd";
 
 class About extends Component {
     constructor(props) {
@@ -43,7 +44,17 @@ class About extends Component {
         this.setState({
             skills : [...this.state.skills,skillOfUser]
         });
-    };//fin addSkill
+    };//fin addSkill, avant exportation vers component skillBarToAdd
+
+    parentOnAddSkill=(skill)=>{
+        var skillOfUser={
+            id:[...this.state.skills].pop().id+1,
+            skillValue:skill
+        };
+        this.setState({
+            skills : [...this.state.skills,skillOfUser]
+        });
+    }
 
     render() {
         return (
@@ -71,24 +82,7 @@ class About extends Component {
                 <div className="card p-3 m-3">
                     <div className="card-header">Skills</div>
                     <div className="card-body">
-                        <form onSubmit={this.addSkill}>
-                            <div className="input-group">
-                                <span className="input-group-text">
-                                    Add Skill To your List :
-                                </span>
-                                <input className="form-control text-center"
-                                       type="text"
-                                       name="skill"
-                                       value={this.state.skillAdded}
-                                       onChange={this.setSkill} >
-
-                                </input>
-                                <button className="input-group-text btn btn-primary"
-                                        type="submit">
-                                    confirm
-                                </button>
-                            </div>
-                        </form>
+                        <SkillBarToAdd childOnAddSkill={this.parentOnAddSkill}/>
                         <table className="table">
                             <thead>
                                 <tr>
@@ -102,7 +96,7 @@ class About extends Component {
                                         .skills
                                         .map(
                                             (skill,index)=>
-                                                <tr>
+                                                <tr key={index}>
                                                     <td>{skill.id}</td>
                                                     <td>{skill.skillValue}</td>
                                                     <td>

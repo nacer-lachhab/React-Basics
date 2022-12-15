@@ -41,7 +41,7 @@ class Counter extends React.Component { //component statless, moin de code que c
                 <div className="card-body">
                     {
                         this.state.list.map((v,index)=>{ //v:value et index:indice
-                            return (<span>
+                            return (<span key={index}>
                                         {index}
                                         <img width={100}
                                              src={this.props.image?this.props.image:'images/photo.jpg'}
