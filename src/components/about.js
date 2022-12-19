@@ -65,7 +65,7 @@ class About extends Component {
                     </div>
                     <div className="row p-3">
                         <div className="col col-auto">
-                            <img src={this.state.contact.profile} width="100"/>
+                            <img src={this.state.contact.profile} width="100" alt=""/>
                         </div>
                         <div className="col">
                             <ul className="list-group">
