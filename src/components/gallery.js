@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import axios from "axios";
+import HitItem from "./hitItem";
+import SearchGalleryHit from "./searchGalleryHit";
 
 class Gallery extends Component {
     constructor(props) {
@@ -13,12 +15,6 @@ class Gallery extends Component {
             pages : []
         };
     }
-
-    setLocationOfPictures=(event)=>{
-        this.setState({
-            locationOfPictures : event.target.value
-        });
-    };
 
     getHits(){
         const endPoint = 'https://pixabay.com/api/?key=';
@@ -44,9 +40,12 @@ class Gallery extends Component {
              .catch((error)=>console.log(error));
     };//fin getHits
 
-    search=(event)=>{
-        event.preventDefault();
-        this.getHits();
+    search=(keyWord)=>{
+        this.setState({
+            locationOfPictures : keyWord
+        },()=>{
+            this.getHits();
+        });
     };
 
     goToPage=(page)=>{
@@ -65,32 +64,10 @@ class Gallery extends Component {
     render() {
         return (
             <div>
-                <form onSubmit={this.search}>
-                    <div className="row m-2 p-2">
-                        <div className="col">
-                            <input type="text"
-                                   className="form-control text-center"
-                                   placeholder="search location"
-                                   value={this.state.locationOfPictures}
-                                   onChange={this.setLocationOfPictures}/>
-                        </div>
-                        <div className="col-auto">
-                            <button className="btn btn-success" type="submit">chercher</button>
-                        </div>
-                    </div>
-                </form>
+                <SearchGalleryHit onSearch={this.search} />
                 <div className="row">
                     {this.state.hits.map(hit=>
-                        <div className="col-md-4" key={hit.id}>
-                            <div className="card my-2">
-                                <div className="card-header">
-                                    {hit.tags} | {hit.webformatWidth} x {hit.webformatHeight}
-                                </div>
-                                <div className="card-body">
-                                    <img height={200} className="card-img" src={hit.webformatURL} alt=""/>
-                                </div>
-                            </div>
-                        </div>
+                        <HitItem hitProp={hit}/>
                     )}
                 </div>
                 <div>
