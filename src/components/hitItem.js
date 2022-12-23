@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from "react-router-dom";
 
 class HitItem extends Component {
     constructor(props) {
@@ -15,6 +16,12 @@ class HitItem extends Component {
                     </div>
                     <div className="card-body">
                         <img height={200} className="card-img" src={this.props.hitProp.webformatURL} alt=""/>
+                    </div>
+                    <div className="text-center mb-2">
+                        <Link to={"/hitDetails/"+this.props.hitProp.id}
+                              className="btn btn-success">
+                            Hit Details
+                        </Link>
                     </div>
                 </div>
             </div>
